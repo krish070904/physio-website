@@ -94,11 +94,11 @@ export default function RecoveryCTA({
           className="recovery-cta-side"
           initial={{
             opacity: 0,
-            x: 30,
+            y: 25,
           }}
           whileInView={{
             opacity: 1,
-            x: 0,
+            y: 0,
           }}
           viewport={{
             once: true,
@@ -128,11 +128,7 @@ export default function RecoveryCTA({
         </motion.div>
       </div>
 
-      <div className="recovery-cta-bottom">
-        <span>PAIN FREE PHYSIOTHERAPY CLINIC</span>
-        <span className="recovery-dot" />
-        <span>BHUBANESWAR, ODISHA</span>
-      </div>
+     
     </section>
   );
-}
+}

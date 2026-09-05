@@ -368,19 +368,50 @@ body {
 ===================================================== */
 
 @media (max-width: 1024px) {
+  .recovery-cta {
+    min-height: auto;
+    padding: 80px 0 70px;
+  }
+
   .recovery-cta-container {
     flex-direction: column;
-    align-items: stretch;
-    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    width: min(720px, 92%);
+    margin: 0 auto;
   }
 
   .recovery-cta-panel {
     max-width: 100%;
-    padding: 48px 40px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 44px 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .recovery-cta-badge {
+    margin: 0 auto 20px auto;
+  }
+
+  .recovery-cta-panel p {
+    margin: 20px auto 0;
+  }
+
+  .recovery-cta-actions {
+    justify-content: center;
   }
 
   .recovery-cta-side {
-    align-self: flex-start;
+    align-self: center;
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
   }
 
   .recovery-side-card {
@@ -388,8 +419,9 @@ body {
     width: 100%;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 24px 30px;
+    margin: 0 auto;
   }
 
   .recovery-side-line {
@@ -402,17 +434,29 @@ body {
 @media (max-width: 680px) {
   .recovery-cta {
     min-height: auto;
-    padding: 70px 0 60px;
+    padding: 60px 0 50px;
+  }
+
+  .recovery-cta-container {
+    width: min(100% - 32px, 480px);
+    gap: 20px;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
   }
 
   .recovery-cta-panel {
-    padding: 36px 24px;
-    border-radius: 26px;
+    padding: 32px 20px;
+    border-radius: 24px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    align-items: center;
   }
 
   .recovery-cta-badge {
     padding: 5px 12px;
-    margin-bottom: 18px;
+    margin: 0 auto 16px auto;
   }
 
   .recovery-cta-eyebrow {
@@ -421,51 +465,66 @@ body {
   }
 
   .recovery-cta h2 {
-    font-size: clamp(32px, 8.5vw, 42px);
-    line-height: 1.05;
+    font-size: clamp(28px, 8vw, 38px);
+    line-height: 1.08;
+    text-align: center;
   }
 
   .recovery-cta-panel p {
     font-size: 14px;
-    margin-top: 18px;
+    margin-top: 16px;
     line-height: 1.6;
+    text-align: center;
   }
 
   .recovery-cta-actions {
-    margin-top: 28px;
+    margin-top: 24px;
     flex-direction: column;
     align-items: stretch;
+    width: 100%;
     gap: 12px;
   }
 
   .recovery-primary-button,
   .recovery-secondary-button {
     width: 100%;
-    min-height: 50px;
+    min-height: 48px;
+    justify-content: center;
+  }
+
+  .recovery-cta-side {
+    align-self: center;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
   }
 
   .recovery-side-card {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
     padding: 24px 20px;
     border-radius: 22px;
+    margin: 0 auto;
   }
 
   .recovery-side-line {
     width: 36px;
     height: 2px;
-    margin: 14px 0 10px;
+    margin: 14px auto 10px auto;
   }
 
   .recovery-cta-bottom {
-    font-size: 7px;
+    font-size: 8px;
     letter-spacing: 0.12em;
     gap: 8px;
     position: relative;
     left: auto;
     bottom: auto;
     transform: none;
-    margin-top: 35px;
+    margin-top: 25px;
+    text-align: center;
+    justify-content: center;
   }
 }
 
