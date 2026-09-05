@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import Carousel, { type CarouselItem } from "../components/Carousel"; // adjust path to wherever Carousel.tsx lives
+import Carousel, { type CarouselItem } from "../components/Carousel";
 
 const processSteps = [
   {
@@ -34,7 +34,9 @@ const processSteps = [
 function ProcessCard({ step }: { step: (typeof processSteps)[number] }) {
   return (
     <article className={`pf-process-card pf-process-card--${step.tone}`}>
-      <span className="pf-process-card-number">{step.number}</span>
+      <span className="pf-process-card-number" aria-hidden="true">
+        {step.number}
+      </span>
 
       <div className="pf-process-card-content">
         <span className="pf-process-card-eyebrow">{step.eyebrow}</span>
@@ -45,7 +47,7 @@ function ProcessCard({ step }: { step: (typeof processSteps)[number] }) {
 
         {step.button && (
           <a href="#contact" className="pf-process-button">
-            {step.button}
+            <span>{step.button}</span>
             <span aria-hidden="true">→</span>
           </a>
         )}
@@ -92,16 +94,19 @@ export default function Process() {
             toward better movement and everyday comfort.
           </p>
 
-          <span className="pf-process-scroll-label">
-            DRAG OR SWIPE TO EXPLORE
-          </span>
+          <div className="pf-process-scroll-wrapper">
+            <span className="pf-process-scroll-label">
+              DRAG OR SWIPE TO EXPLORE
+            </span>
+            <span className="pf-process-scroll-icon">↔</span>
+          </div>
         </div>
 
         {/* CAROUSEL */}
         <div className="pf-process-deck">
           <Carousel
             items={carouselItems}
-            baseWidth={520}
+            baseWidth={540}
             autoplay={false}
             autoplayDelay={3000}
             pauseOnHover={false}
@@ -111,14 +116,6 @@ export default function Process() {
         </div>
       </div>
 
-      {/*
-        NOTE: this is "jsx global", not scoped "jsx". Card markup (ProcessCard)
-        is rendered from inside <Carousel />, a different component — scoped
-        styled-jsx only tags elements written directly in *this* component's
-        own return, so a scoped block would never reach Carousel's render
-        tree. Global avoids that; class names are prefixed "pf-process-" to
-        stay unique app-wide.
-      */}
       <style jsx global>{`
         .pf-process {
           --process-green: #173b36;
@@ -129,28 +126,30 @@ export default function Process() {
           --process-muted: #6b7280;
 
           position: relative;
-          padding: 100px 0;
-          background: var(--process-bg);
+          padding: clamp(60px, 8vw, 110px) 0;
+          background: transparent !important;
+          overflow: hidden;
         }
 
         .pf-process-container {
           width: min(1280px, 92%);
           margin: 0 auto;
           display: grid;
-          grid-template-columns: minmax(280px, 0.82fr) minmax(480px, 1.18fr);
-          gap: clamp(45px, 7vw, 100px);
+          grid-template-columns: minmax(280px, 0.85fr) minmax(300px, 1.15fr);
+          gap: clamp(35px, 5vw, 85px);
           align-items: center;
         }
 
         .pf-process-intro {
           max-width: 520px;
+          width: 100%;
         }
 
         .pf-process-kicker {
           display: inline-block;
-          margin-bottom: 20px;
+          margin-bottom: 16px;
           color: #52776d;
-          font-size: 11px;
+          font-size: clamp(10px, 1.1vw, 11px);
           font-weight: 800;
           line-height: 1.4;
           letter-spacing: 0.18em;
@@ -159,10 +158,10 @@ export default function Process() {
         .pf-process-title {
           margin: 0;
           color: var(--process-green);
-          font-size: clamp(44px, 5vw, 72px);
-          font-weight: 700;
-          line-height: 0.99;
-          letter-spacing: -0.055em;
+          font-size: clamp(36px, 4.5vw, 68px);
+          font-weight: 800;
+          line-height: 1.02;
+          letter-spacing: -0.045em;
         }
 
         .pf-process-title span {
@@ -171,49 +170,70 @@ export default function Process() {
 
         .pf-process-description {
           max-width: 500px;
-          margin: 28px 0 0;
+          margin: clamp(18px, 2.5vw, 26px) 0 0;
           color: var(--process-muted);
-          font-size: 16px;
-          line-height: 1.65;
+          font-size: clamp(14px, 1.2vw, 16px);
+          line-height: 1.68;
+        }
+
+        .pf-process-scroll-wrapper {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          margin-top: clamp(18px, 2.5vw, 26px);
+          padding: 6px 14px;
+          border-radius: 999px;
+          background: rgba(23, 59, 54, 0.05);
+          border: 1px solid rgba(23, 59, 54, 0.1);
         }
 
         .pf-process-scroll-label {
-          display: block;
-          margin-top: 24px;
-          color: #8b9490;
+          color: #626d69;
           font-size: 9px;
           font-weight: 800;
-          letter-spacing: 0.18em;
+          letter-spacing: 0.16em;
+        }
+
+        .pf-process-scroll-icon {
+          color: var(--process-peach);
+          font-size: 13px;
+          line-height: 1;
         }
 
         .pf-process-deck {
           position: relative;
           width: 100%;
+          min-width: 0;
         }
 
         .pf-process-card {
           width: 100%;
-          height: 100%;
-          min-height: 480px;
+          min-height: clamp(380px, 48vh, 460px);
           overflow: hidden;
-          padding: clamp(38px, 5vw, 62px);
-          border-radius: 30px;
+          padding: clamp(28px, 4vw, 52px);
+          border-radius: clamp(20px, 3vw, 30px);
           position: relative;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
           box-shadow:
-            0 28px 65px rgba(23, 59, 54, 0.13),
-            0 5px 14px rgba(23, 59, 54, 0.08);
+            0 24px 60px rgba(23, 59, 54, 0.12),
+            0 4px 12px rgba(23, 59, 54, 0.06);
+          box-sizing: border-box;
         }
 
         .pf-process-card--green {
-          background: rgba(102, 130, 120, 0.65);
-          color: #fff;
+          background: rgba(102, 130, 120, 0.72);
+          color: #ffffff;
+          border: 1px solid rgba(255, 255, 255, 0.22);
         }
 
         .pf-process-card--cream {
-          background: rgba(231, 239, 235, 0.65);
+          background: rgba(231, 239, 235, 0.75);
           color: var(--process-green);
+          border: 1px solid rgba(23, 59, 54, 0.12);
         }
 
         .pf-process-card::before,
@@ -225,18 +245,18 @@ export default function Process() {
         }
 
         .pf-process-card::before {
-          width: 260px;
-          height: 260px;
-          right: -120px;
-          bottom: -150px;
+          width: 240px;
+          height: 240px;
+          right: -100px;
+          bottom: -130px;
           border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .pf-process-card::after {
-          width: 150px;
-          height: 150px;
-          right: 60px;
-          bottom: -90px;
+          width: 130px;
+          height: 130px;
+          right: 50px;
+          bottom: -80px;
           background: rgba(255, 255, 255, 0.05);
         }
 
@@ -250,125 +270,192 @@ export default function Process() {
 
         .pf-process-card-number {
           position: absolute;
-          top: 22px;
-          right: 38px;
+          top: clamp(14px, 2vw, 24px);
+          right: clamp(18px, 3vw, 36px);
           color: currentColor;
-          opacity: 0.12;
-          font-size: clamp(105px, 11vw, 175px);
+          opacity: 0.14;
+          font-size: clamp(80px, 9vw, 150px);
           font-weight: 800;
           line-height: 1;
           letter-spacing: -0.08em;
           pointer-events: none;
+          z-index: 1;
         }
 
         .pf-process-card-content {
           position: relative;
           z-index: 2;
-          max-width: 640px;
-          padding-top: 32px;
+          width: 100%;
+          max-width: 580px;
         }
 
         .pf-process-card-eyebrow {
           display: block;
-          max-width: 360px;
-          margin-bottom: 20px;
-          opacity: 0.72;
-          font-size: 11px;
+          max-width: 100%;
+          margin-bottom: 14px;
+          opacity: 0.8;
+          font-size: clamp(9px, 1.1vw, 11px);
           font-weight: 800;
-          line-height: 1.45;
+          line-height: 1.4;
           letter-spacing: 0.18em;
         }
 
         .pf-process-card h3 {
-          max-width: 600px;
+          max-width: 100%;
           margin: 0;
-          font-size: clamp(32px, 4vw, 48px);
+          font-size: clamp(24px, 3.2vw, 42px);
           font-weight: 700;
-          line-height: 1.05;
-          letter-spacing: -0.05em;
+          line-height: 1.1;
+          letter-spacing: -0.04em;
         }
 
         .pf-process-card p {
-          max-width: 580px;
-          margin: 26px 0 0;
-          opacity: 0.82;
-          font-size: 16px;
+          max-width: 540px;
+          margin: clamp(16px, 2vw, 24px) 0 0;
+          opacity: 0.88;
+          font-size: clamp(14px, 1.2vw, 16px);
           line-height: 1.65;
         }
 
         .pf-process-button {
           display: inline-flex;
           align-items: center;
-          gap: 14px;
-          margin-top: 30px;
-          padding: 14px 23px;
+          gap: 12px;
+          margin-top: clamp(22px, 3vw, 32px);
+          padding: 12px 24px;
           border-radius: 999px;
           background: var(--process-peach);
-          color: #fff;
+          color: #ffffff;
           font-size: 13px;
           font-weight: 700;
           text-decoration: none;
-          transition:
-            transform 200ms ease,
-            background 200ms ease;
+          box-shadow: 0 10px 22px rgba(223, 139, 100, 0.28);
+          transition: transform 200ms ease, background 200ms ease, box-shadow 200ms ease;
         }
 
         .pf-process-button:hover {
           transform: translateY(-2px);
           background: #d47e58;
+          box-shadow: 0 14px 28px rgba(223, 139, 100, 0.38);
         }
 
-        .pf-process-button span {
-          font-size: 18px;
+        .pf-process-button span:last-child {
+          font-size: 16px;
           line-height: 1;
         }
 
         .pf-process-card-mark {
           position: absolute;
-          right: 48px;
-          bottom: 34px;
+          right: 32px;
+          bottom: 24px;
           z-index: 1;
-          opacity: 0.07;
-          font-size: 92px;
+          opacity: 0.06;
+          font-size: clamp(60px, 7vw, 90px);
           font-weight: 800;
           line-height: 1;
           letter-spacing: -0.08em;
           pointer-events: none;
         }
 
-        @media (max-width: 1050px) {
+        /* =====================================================
+           RESPONSIVE BREAKPOINTS
+        ===================================================== */
+
+        @media (max-width: 1024px) {
           .pf-process-container {
-            grid-template-columns: minmax(250px, 0.72fr) minmax(420px, 1.28fr);
-            gap: 40px;
+            grid-template-columns: 1fr;
+            gap: 45px;
+          }
+
+          .pf-process-intro {
+            max-width: 680px;
           }
 
           .pf-process-title {
-            font-size: 48px;
+            font-size: clamp(34px, 5.5vw, 48px);
           }
         }
 
-        @media (max-width: 800px) {
+        @media (max-width: 640px) {
+          .pf-process {
+            padding: 55px 0;
+          }
+
           .pf-process-container {
             width: 90%;
-            grid-template-columns: 1fr;
-            gap: 28px;
+            gap: 32px;
+          }
+
+          .pf-process-intro {
+            max-width: 100%;
           }
 
           .pf-process-title {
-            font-size: clamp(38px, 8vw, 50px);
+            font-size: clamp(28px, 7.5vw, 38px);
+            line-height: 1.05;
+          }
+
+          .pf-process-description {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-top: 14px;
           }
 
           .pf-process-card {
-            padding: 30px;
-            border-radius: 23px;
-            min-height: 400px;
+            min-height: auto;
+            padding: 26px 20px;
+            border-radius: 20px;
+          }
+
+          .pf-process-card-content {
+            padding-top: 0;
+          }
+
+          .pf-process-card-number {
+            top: 12px;
+            right: 14px;
+            font-size: 64px;
+            opacity: 0.12;
           }
 
           .pf-process-card h3 {
-            font-size: 30px;
+            font-size: 22px;
+            line-height: 1.15;
+          }
+
+          .pf-process-card p {
+            font-size: 13.5px;
+            line-height: 1.6;
+            margin-top: 14px;
+          }
+
+          .pf-process-button {
+            width: 100%;
+            justify-content: center;
+            min-height: 48px;
+            margin-top: 22px;
+          }
+
+          .pf-process-card-mark {
+            display: none;
+          }
+        }
+
+        @media (max-width: 380px) {
+          .pf-process-card {
+            padding: 22px 16px;
+          }
+
+          .pf-process-card h3 {
+            font-size: 20px;
+          }
+
+          .pf-process-card p {
+            font-size: 13px;
           }
         }
       `}</style>
     </section>
   );
 }
+

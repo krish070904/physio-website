@@ -11,7 +11,7 @@ import {
 export default function Location() {
   return (
     <section
-      id="contact"
+      id="location"
       className="location-section"
     >
       <div className="location-container">

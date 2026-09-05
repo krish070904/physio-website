@@ -37,11 +37,43 @@ export default function Carousel({
 }: CarouselProps) {
   const [index, setIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [containerWidth, setContainerWidth] = useState<number>(baseWidth);
   const x = useMotionValue(0);
   const controls = useAnimation();
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const itemWidth = baseWidth;
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const updateWidth = () => {
+      if (containerRef.current) {
+        const clientWidth = containerRef.current.clientWidth;
+        if (clientWidth > 0) {
+          setContainerWidth(Math.min(baseWidth, clientWidth));
+        }
+      }
+    };
+
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.contentRect.width > 0) {
+          setContainerWidth(Math.min(baseWidth, entry.contentRect.width));
+        }
+      }
+    });
+
+    resizeObserver.observe(containerRef.current);
+
+    return () => {
+      window.removeEventListener("resize", updateWidth);
+      resizeObserver.disconnect();
+    };
+  }, [baseWidth]);
+
+  const itemWidth = containerWidth > 0 ? containerWidth : baseWidth;
   const trackItemOffset = itemWidth + gap;
   const count = items.length;
 
@@ -79,7 +111,7 @@ export default function Carousel({
     _event: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo
   ) => {
-    const threshold = itemWidth * 0.25;
+    const threshold = Math.min(itemWidth * 0.2, 80);
 
     if (info.offset.x < -threshold) {
       goTo(index + 1);
@@ -106,7 +138,7 @@ export default function Carousel({
       style={{
         position: "relative",
         width: "100%",
-        maxWidth: itemWidth,
+        maxWidth: "100%",
         margin: "0 auto",
         overflow: "hidden",
       }}
@@ -119,6 +151,7 @@ export default function Carousel({
           gap,
           cursor: "grab",
           x,
+          width: "max-content",
         }}
         drag="x"
         dragConstraints={dragConstraints}
@@ -132,7 +165,8 @@ export default function Carousel({
             key={item.id}
             style={{
               flex: `0 0 ${itemWidth}px`,
-              width: itemWidth,
+              width: `${itemWidth}px`,
+              maxWidth: "100%",
               borderRadius: round ? "50%" : 24,
               aspectRatio: round ? "1 / 1" : undefined,
               overflow: "hidden",
@@ -151,7 +185,7 @@ export default function Carousel({
             display: "flex",
             justifyContent: "center",
             gap: 8,
-            marginTop: 16,
+            marginTop: 20,
           }}
         >
           {items.map((item, i) => (
@@ -161,13 +195,13 @@ export default function Carousel({
               aria-label={`Go to slide ${i + 1}`}
               onClick={() => goTo(i)}
               style={{
-                width: i === index ? 20 : 8,
+                width: i === index ? 24 : 8,
                 height: 8,
                 borderRadius: 999,
                 border: "none",
-                background: i === index ? "#173b36" : "#cfd6d3",
+                background: i === index ? "#df8b64" : "rgba(23, 59, 54, 0.25)",
                 cursor: "pointer",
-                transition: "all 200ms ease",
+                transition: "all 250ms ease",
                 padding: 0,
               }}
             />
@@ -176,4 +210,4 @@ export default function Carousel({
       )}
     </div>
   );
-}
+}

@@ -31,6 +31,22 @@ const backgrounds = [
     id: "recovery-2",
     src: "/service6.png",
   },
+  {
+    id: "about",
+    src: "/service5.png",
+  },
+  {
+    id: "location",
+    src: "/service5.png",
+  },
+  {
+    id: "faq",
+    src: "/service5.png",
+  },
+  {
+    id: "contact",
+    src: "/BG.png",
+  },
 ];
 
 export default function SiteBackground() {
@@ -45,6 +61,10 @@ export default function SiteBackground() {
       "recovery",
       "reviews",
       "recovery-2",
+      "about",
+      "location",
+      "faq",
+      "contact",
     ];
 
     const handleScroll = () => {
