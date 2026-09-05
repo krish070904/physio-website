@@ -74,9 +74,14 @@ export default function Process() {
     <section
       id="process"
       aria-label="Your physiotherapy journey"
-      className="pf-process"
+      className="pf-process relative overflow-hidden bg-[#f8f6f1]"
     >
-      <div className="pf-process-container">
+      {/* Decorative ambient background orbs */}
+      <div className="pointer-events-none absolute -left-28 top-20 h-80 w-80 rounded-full bg-[#df8b64]/12 blur-3xl" aria-hidden="true" />
+      <div className="pointer-events-none absolute -right-32 bottom-10 h-96 w-96 rounded-full bg-[#52776d]/14 blur-3xl" aria-hidden="true" />
+      <div className="pointer-events-none absolute left-1/3 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-[#dce9e4]/60 blur-3xl" aria-hidden="true" />
+
+      <div className="pf-process-container relative z-10">
         {/* LEFT CONTENT */}
         <div className="pf-process-intro">
           <span className="pf-process-kicker">
@@ -104,6 +109,9 @@ export default function Process() {
 
         {/* CAROUSEL */}
         <div className="pf-process-deck">
+          {/* Subtle deck ambient halo */}
+          <div className="pf-deck-halo" aria-hidden="true" />
+
           <Carousel
             items={carouselItems}
             baseWidth={540}
@@ -121,14 +129,25 @@ export default function Process() {
           --process-green: #173b36;
           --process-green-soft: #668278;
           --process-cream: #e7efeb;
-          --process-bg: #f8f7f4;
+          --process-bg: #f8f6f1;
           --process-peach: #df8b64;
           --process-muted: #6b7280;
 
           position: relative;
-          padding: clamp(60px, 8vw, 110px) 0;
-          background: transparent !important;
+          padding: clamp(65px, 8vw, 120px) 0;
+          background: var(--process-bg);
           overflow: hidden;
+        }
+
+        .pf-deck-halo {
+          position: absolute;
+          inset: -15px -10px -25px -10px;
+          border-radius: 36px;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(220, 233, 228, 0.4) 100%);
+          border: 1px solid rgba(23, 59, 54, 0.06);
+          box-shadow: 0 20px 45px rgba(23, 59, 54, 0.05);
+          pointer-events: none;
+          z-index: 0;
         }
 
         .pf-process-container {
@@ -401,6 +420,11 @@ export default function Process() {
             margin-top: 14px;
           }
 
+          .pf-deck-halo {
+            inset: -8px -4px -14px -4px;
+            border-radius: 24px;
+          }
+
           .pf-process-card {
             min-height: auto;
             padding: 26px 20px;
@@ -458,4 +482,3 @@ export default function Process() {
     </section>
   );
 }
-

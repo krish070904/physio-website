@@ -5,7 +5,6 @@ import Services from "@/section/Services";
 import Process from "@/section/Process";
 import Gallery from "@/section/gallery";
 import RecoveryCTA from "@/section/RecoveryCTA";
-import SiteBackground from "@/components/site-background";
 import Review from "@/section/review";
 import AboutDoc from "@/section/aboutdoc";
 import Location from "@/section/Location";
@@ -14,8 +13,6 @@ import Contact from "@/section/Contact";
 export default function Home() {
   return (
     <main>
-      <SiteBackground />
-
       <Navbar />
 
       <Hero />
@@ -27,12 +24,12 @@ export default function Home() {
 
       <Process />
 
-      <RecoveryCTA id="recovery" />
+      <RecoveryCTA id="recovery" bgImage="/service5.png" />
 
        <Review />
 
 
-       <RecoveryCTA id="recovery-2" />
+       <RecoveryCTA id="recovery-2" bgImage="/service6.png" />
 
        
 

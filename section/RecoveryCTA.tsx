@@ -4,15 +4,27 @@ import { motion } from "motion/react";
 
 interface RecoveryCTAProps {
   id?: string;
+  bgImage?: string;
 }
 
-export default function RecoveryCTA({ id = "recovery" }: RecoveryCTAProps) {
+export default function RecoveryCTA({
+  id = "recovery",
+  bgImage = "/service5.png",
+}: RecoveryCTAProps) {
   return (
     <section
       id={id}
       className="recovery-cta"
       aria-label="Start your physiotherapy journey"
     >
+      {/* Blurred background image specific to Recovery CTA */}
+      {bgImage && (
+        <div className="recovery-cta-bg" aria-hidden="true">
+          <img src={bgImage} alt="" className="recovery-cta-bg-img" />
+          <div className="recovery-cta-overlay" />
+        </div>
+      )}
+
       {/* Subtle ambient light glows for glassmorphism depth */}
       <div className="recovery-ambient-glow recovery-glow-left" aria-hidden="true" />
       <div className="recovery-ambient-glow recovery-glow-right" aria-hidden="true" />

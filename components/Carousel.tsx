@@ -152,6 +152,9 @@ export default function Carousel({
           cursor: "grab",
           x,
           width: "max-content",
+          touchAction: "pan-y",
+          WebkitUserSelect: "none",
+          userSelect: "none",
         }}
         drag="x"
         dragConstraints={dragConstraints}

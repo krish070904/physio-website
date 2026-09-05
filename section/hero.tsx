@@ -75,7 +75,7 @@ export default function Hero() {
 
               {/* Primary */}
               <a
-                href="#appointment"
+                href="#contact"
                 className="group flex h-[62px] items-center justify-center gap-4 rounded-full bg-[#df8b64] px-8 text-[16px] font-semibold text-white shadow-[0_10px_30px_rgba(223,139,100,0.2)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#d47f58]"
               >
                 <CalendarIcon />
@@ -91,7 +91,7 @@ export default function Hero() {
 
               {/* Secondary */}
               <a
-                href="#contact"
+                href="#location"
                 className="flex h-[62px] items-center justify-center gap-3 rounded-full border border-[#314a46]/35 bg-white/65 px-8 text-[16px] font-semibold text-[#263f3b] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-white"
               >
                 <LocationIcon />

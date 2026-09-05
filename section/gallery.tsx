@@ -99,7 +99,6 @@ export default function Gallery() {
               />
 
               <div className="absolute inset-0 bg-gradient-to-t from-[#173b36]/75 via-transparent to-transparent opacity-70 transition-opacity duration-500 group-hover:opacity-90" />
-\
 
               {/* Caption */}
               <div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-3">
